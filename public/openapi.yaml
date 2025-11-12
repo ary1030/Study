@@ -3,7 +3,7 @@ info:
   title: Study Dashboard Actions
   version: 1.0.0
 servers:
-  - url: https://YOUR-PROJECT.vercel.app
+  - url: https://study-blue-nine.vercel.app
 paths:
   /api/parse:
     post:
