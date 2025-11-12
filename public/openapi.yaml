@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: Study Dashboard Actions
+  version: 1.0.0
+servers:
+  - url: https://YOUR-PROJECT.vercel.app
+paths:
+  /api/parse:
+    post:
+      operationId: parse_file
+      summary: Extract plain text from a file
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: Direct file URL
+              required: [url]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+  /api/export:
+    post:
+      operationId: export_data
+      summary: Export data as markdown, CSV, or JSON
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [notes_md, flashcards_csv, quiz_json]
+                data:
+                  oneOf:
+                    - type: string
+                    - type: array
+              required: [type, data]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  filename:
+                    type: string
+                  href:
+                    type: string
+                    description: data: URL to download
